@@ -30,13 +30,13 @@ export function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
-              href="#courses"
+              href="/courses"
               className="inline-flex h-12 items-center justify-center rounded-lg bg-emerald-500 px-8 text-sm font-semibold text-white hover:bg-emerald-400 active:scale-[0.98] transition-all"
             >
               开始学习
             </a>
             <a
-              href="#subjects"
+              href="/#subjects"
               className="inline-flex h-12 items-center justify-center rounded-lg border border-zinc-700 px-8 text-sm font-semibold text-zinc-300 hover:bg-zinc-800 active:scale-[0.98] transition-all"
             >
               浏览学科

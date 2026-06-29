@@ -17,9 +17,8 @@ export function NavBar() {
           <span className="font-semibold text-sm text-white">FitLearn</span>
         </a>
         <div className="hidden md:flex items-center gap-8">
-          <a href="#subjects" className="text-sm text-zinc-400 hover:text-white transition-colors">学科</a>
-          <a href="#courses" className="text-sm text-zinc-400 hover:text-white transition-colors">课程</a>
-          <a href="#" className="text-sm text-zinc-400 hover:text-white transition-colors">工具</a>
+          <a href="/courses" className="text-sm text-zinc-400 hover:text-white transition-colors">课程</a>
+          <a href="/#subjects" className="text-sm text-zinc-400 hover:text-white transition-colors">学科</a>
           <a href="#" className="inline-flex h-9 items-center justify-center rounded-lg bg-emerald-500 px-5 text-sm font-semibold text-white hover:bg-emerald-400 active:scale-[0.98] transition-all">
             免费注册
           </a>
@@ -39,9 +38,8 @@ export function NavBar() {
       {open && (
         <div className="md:hidden border-t border-white/10 bg-zinc-950/95 backdrop-blur-md">
           <div className="container-main py-4 flex flex-col gap-3">
-            <a href="#subjects" onClick={() => setOpen(false)} className="text-sm text-zinc-400 hover:text-white transition-colors py-2">学科</a>
-            <a href="#courses" onClick={() => setOpen(false)} className="text-sm text-zinc-400 hover:text-white transition-colors py-2">课程</a>
-            <a href="#" onClick={() => setOpen(false)} className="text-sm text-zinc-400 hover:text-white transition-colors py-2">工具</a>
+            <a href="/courses" onClick={() => setOpen(false)} className="text-sm text-zinc-400 hover:text-white transition-colors py-2">课程</a>
+            <a href="/#subjects" onClick={() => setOpen(false)} className="text-sm text-zinc-400 hover:text-white transition-colors py-2">学科</a>
             <a href="#" onClick={() => setOpen(false)} className="inline-flex h-10 items-center justify-center rounded-lg bg-emerald-500 px-5 text-sm font-semibold text-white hover:bg-emerald-400 transition-all mt-2">
               免费注册
             </a>

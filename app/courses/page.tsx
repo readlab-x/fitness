@@ -1,17 +1,23 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useEffect, useState } from "react";
 import { NavBar } from "@/components/nav-bar";
 import { Footer } from "@/components/footer";
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, Users } from "@phosphor-icons/react/dist/ssr";
-import { courses } from "@/lib/courses";
-
-export const metadata: Metadata = {
-  title: "课程列表 | FitLearn",
-  description: "浏览 FitLearn 全部系统课程，从解剖到周期化系统掌握运动科学。",
-};
+import type { Course } from "@/lib/courses";
 
 export default function CoursesPage() {
+  const [courses, setCourses] = useState<Course[]>([]);
+
+  useEffect(() => {
+    fetch("/api/courses")
+      .then((r) => r.json())
+      .then((res) => setCourses(res.data));
+    document.title = "课程列表 | FitLearn";
+  }, []);
+
   return (
     <>
       <NavBar />

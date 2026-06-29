@@ -3,25 +3,24 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Clock, Users, X, CheckCircle } from "@phosphor-icons/react/dist/ssr";
-import { courses } from "@/lib/courses";
+import type { Course } from "@/lib/courses";
 
-export function FeaturedCourses() {
-  const featured = courses.slice(0, 3);
-  const [selected, setSelected] = useState<typeof featured[0] | null>(null);
+export function FeaturedCourses({ courses }: { courses: Course[] }) {
+  const [selected, setSelected] = useState<(typeof courses)[0] | null>(null);
 
   return (
     <section id="courses" className="py-24 md:py-32 bg-white dark:bg-zinc-950 scroll-mt-14">
       <div className="container-main">
         <div className="max-w-2xl mb-16">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-zinc-900 dark:text-white mb-4">
-            精选课程
+            全部课程
           </h2>
           <p className="text-base text-zinc-500 dark:text-zinc-400 leading-relaxed">
             由运动科学专家团队打造的高质量系统课程。
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {featured.map((c) => (
+          {courses.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelected(c)}
@@ -59,14 +58,6 @@ export function FeaturedCourses() {
               </div>
             </button>
           ))}
-        </div>
-        <div className="mt-8 text-center">
-          <a
-            href="/courses"
-            className="inline-flex h-11 items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-700 px-6 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 active:scale-[0.98] transition-all"
-          >
-            查看全部课程
-          </a>
         </div>
       </div>
 

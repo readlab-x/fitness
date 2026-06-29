@@ -9,6 +9,9 @@ import { Testimonials } from "@/components/testimonials";
 import { StatsRow } from "@/components/stats-row";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
+import { getAllCourses } from "@/lib/load-course";
+
+const courses = getAllCourses();
 
 export default function HomePage() {
   return (
@@ -18,7 +21,7 @@ export default function HomePage() {
         <Hero />
         <SubjectGrid />
         <LearningPath />
-        <FeaturedCourses />
+        <FeaturedCourses courses={courses} />
         <AnatomyDive />
         <TrainingTools />
         <Testimonials />

@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ThemeSwitcher } from "./theme-switcher";
 
 const links = [
   { label: "全部课程", href: "/courses" },
+  { label: "训练工具", href: "/tools" },
   { label: "学科概览", href: "/#subjects" },
 ];
 
@@ -32,6 +34,7 @@ export function NavBar() {
               {l.label}
             </Link>
           ))}
+          <ThemeSwitcher />
           <Link
             href="/courses"
             className="inline-flex h-8 items-center justify-center rounded-lg bg-emerald-500 px-4 text-xs font-semibold text-white hover:bg-emerald-400 active:scale-[0.98] transition-all"
@@ -75,6 +78,9 @@ export function NavBar() {
             >
               开始学习
             </Link>
+            <div className="mt-3 pt-3 border-t border-zinc-800">
+              <ThemeSwitcher />
+            </div>
           </div>
         </div>
       )}

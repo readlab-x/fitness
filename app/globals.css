@@ -19,6 +19,9 @@
   --foreground: #18181b;
   --scroll-thumb: #d4d4d8;
   --scroll-thumb-hover: #a1a1aa;
+  --table-border: #e4e4e7;
+  --table-header-bg: #f4f4f5;
+  --table-stripe: #fafafa;
 }
 
 .dark {
@@ -26,6 +29,9 @@
   --foreground: #fafafa;
   --scroll-thumb: #52525b;
   --scroll-thumb-hover: #71717a;
+  --table-border: #27272a;
+  --table-header-bg: #18181b;
+  --table-stripe: #141416;
 }
 
 body {
@@ -70,4 +76,48 @@ html::-webkit-scrollbar-thumb:hover {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+}
+
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5em 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  min-width: 560px;
+}
+
+.prose .table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5em 0;
+}
+
+.prose .table-wrap table {
+  margin: 0;
+}
+
+.prose table th,
+.prose table td {
+  border: 1px solid var(--table-border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose table th {
+  font-weight: 600;
+  background: var(--table-header-bg);
+  white-space: nowrap;
+}
+
+.prose table tbody tr:nth-child(even) {
+  background: var(--table-stripe);
+}
+
+.prose table code {
+  font-size: 0.8em;
+  background: var(--table-stripe);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
 }

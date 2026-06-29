@@ -73,7 +73,7 @@ const subjects = [
 
 export function SubjectGrid() {
   return (
-    <section id="subjects" className="py-24 md:py-32 bg-white dark:bg-zinc-950">
+    <section id="subjects" className="py-24 md:py-32 bg-white dark:bg-zinc-950 scroll-mt-16">
       <div className="container-main">
         <div className="max-w-2xl mb-16">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-zinc-900 dark:text-white mb-4">

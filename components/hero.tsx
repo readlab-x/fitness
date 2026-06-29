@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[100dvh] bg-zinc-950 overflow-hidden">
+    <section className="relative min-h-[100dvh] bg-zinc-950 overflow-hidden pt-16">
       <div className="absolute inset-0">
         <Image
           src="https://picsum.photos/seed/fitness-athlete-studio/1920/1280"

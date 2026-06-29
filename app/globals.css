@@ -25,6 +25,7 @@ body {
 }
 
 html {
+  scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--scroll-thumb) transparent;
 }

@@ -86,7 +86,7 @@ export function FeaturedCourses() {
   const [selected, setSelected] = useState<typeof courses[0] | null>(null);
 
   return (
-    <section id="courses" className="py-24 md:py-32 bg-white dark:bg-zinc-950 scroll-mt-16">
+    <section id="courses" className="py-24 md:py-32 bg-white dark:bg-zinc-950 scroll-mt-14">
       <div className="container-main">
         <div className="max-w-2xl mb-16">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-zinc-900 dark:text-white mb-4">

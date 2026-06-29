@@ -15,7 +15,7 @@ export default function CoursesPage() {
   return (
     <>
       <NavBar />
-      <main className="pt-16">
+      <main className="pt-14">
         <section className="py-24 md:py-32 bg-zinc-950">
           <div className="container-main">
             <div className="max-w-2xl mb-16">

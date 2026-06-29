@@ -41,7 +41,7 @@ export default function CourseLearningPage() {
   return (
     <div className="min-h-[100dvh] bg-white dark:bg-zinc-950 flex flex-col">
       {/* Top bar */}
-      <header className="h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex items-center shrink-0">
+      <header className="h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex items-center shrink-0 px-4">
         <div className="container-main flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
@@ -73,7 +73,7 @@ export default function CourseLearningPage() {
         <aside
           className={`${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-40 w-72 border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 pt-14 lg:pt-0 transition-transform duration-200 overflow-y-auto`}
+          } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-40 w-72 border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 pt-14 lg:pt-14 transition-transform duration-200 overflow-y-auto`}
         >
           <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
             <h2 className="text-sm font-semibold text-zinc-900 dark:text-white mb-1">

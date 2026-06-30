@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useRef, memo } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -25,23 +25,44 @@ const MODEL_MAP: Record<string, string> = {
 Object.values(MODEL_MAP).forEach((path) => useGLTF.preload(path));
 
 function Model({ model }: { model: string }) {
+  const groupRef = useRef<THREE.Group>(null!);
   const path = MODEL_MAP[model] || MODEL_MAP.skeleton;
   const { scene } = useGLTF(path);
 
   useEffect(() => {
-    scene.traverse((child) => {
+    const group = groupRef.current;
+    const clone = scene.clone(true);
+    clone.traverse((child) => {
       if (child instanceof THREE.Mesh) {
+        child.geometry = child.geometry.clone();
+        if (Array.isArray(child.material)) {
+          child.material = child.material.map((m) => m.clone());
+        } else {
+          child.material = child.material.clone();
+        }
         child.frustumCulled = false;
-        child.castShadow = true;
-        child.receiveShadow = true;
       }
     });
+    group.add(clone);
+    return () => {
+      group.remove(clone);
+      clone.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.geometry.dispose();
+          if (Array.isArray(child.material)) {
+            child.material.forEach((m) => m.dispose());
+          } else {
+            child.material.dispose();
+          }
+        }
+      });
+    };
   }, [scene]);
 
-  return <primitive object={scene} scale={1.2} />;
+  return <group ref={groupRef} scale={1.2} />;
 }
 
-function Scene({ model }: { model: string }) {
+const Scene = memo(function Scene({ model }: { model: string }) {
   return (
     <>
       <PerspectiveCamera makeDefault position={[3, 1.5, 3]} fov={30} />
@@ -64,9 +85,9 @@ function Scene({ model }: { model: string }) {
       />
     </>
   );
-}
+});
 
-export function ModelViewer({
+export const ModelViewer = memo(function ModelViewer({
   model = "skeleton",
   className = "",
 }: {
@@ -86,4 +107,4 @@ export function ModelViewer({
       </div>
     </div>
   );
-}
+});

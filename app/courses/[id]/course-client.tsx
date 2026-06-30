@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Course } from "@/lib/courses";
 import { Module } from "@/lib/load-course";
 import ReactMarkdown from "react-markdown";
@@ -15,12 +16,25 @@ import {
   X,
 } from "@phosphor-icons/react/dist/ssr";
 
-const markdownComponents = {
+const ModelViewer = dynamic(
+  () => import("@/components/model-viewer").then((m) => m.ModelViewer),
+  { ssr: false }
+);
+
+const markdownComponents: Record<string, React.ComponentType<any>> = {
   table: (props: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="table-wrap">
       <table {...props} />
     </div>
   ),
+  code: ({ className, children, ...props }: any) => {
+    const match = /language-3d(\w*)/.exec(className || "");
+    if (match) {
+      const modelType = match[1] || "skeleton";
+      return <ModelViewer model={modelType} className="my-6" />;
+    }
+    return <pre><code className={className} {...props}>{children}</code></pre>;
+  },
 };
 
 export default function CourseClient({

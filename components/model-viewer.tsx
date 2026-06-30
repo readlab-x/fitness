@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -8,7 +8,9 @@ import {
   PerspectiveCamera,
   useGLTF,
   Center,
+  Environment,
 } from "@react-three/drei";
+import * as THREE from "three";
 
 const MODEL_MAP: Record<string, string> = {
   skeleton: "/models/skeleton.glb",
@@ -25,17 +27,28 @@ Object.values(MODEL_MAP).forEach((path) => useGLTF.preload(path));
 function Model({ model }: { model: string }) {
   const path = MODEL_MAP[model] || MODEL_MAP.skeleton;
   const { scene } = useGLTF(path);
+
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.frustumCulled = false;
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+  }, [scene]);
+
   return <primitive object={scene} scale={1.2} />;
 }
 
 function Scene({ model }: { model: string }) {
   return (
     <>
-      <PerspectiveCamera makeDefault position={[2.2, 0.8, 2.8]} fov={35} />
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 5, 5]} intensity={1.0} />
-      <directionalLight position={[-3, 2, -3]} intensity={0.4} />
-      <spotLight position={[0, 3, 0]} intensity={0.3} angle={Math.PI / 3} />
+      <PerspectiveCamera makeDefault position={[3, 1.5, 3]} fov={30} />
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[5, 5, 5]} intensity={0.6} />
+      <directionalLight position={[-5, 2, -5]} intensity={0.3} />
+      <Environment preset="city" environmentIntensity={0.6} />
       <Float speed={0.5} rotationIntensity={0.02} floatIntensity={0.3}>
         <Center>
           <Suspense fallback={null}>
@@ -43,14 +56,10 @@ function Scene({ model }: { model: string }) {
           </Suspense>
         </Center>
       </Float>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.5, 0]}>
-        <planeGeometry args={[8, 8]} />
-        <meshStandardMaterial color="#000" transparent opacity={0} />
-      </mesh>
       <OrbitControls
         enablePan={false}
-        minDistance={1.5}
-        maxDistance={6}
+        minDistance={1}
+        maxDistance={8}
         target={[0, 0, 0]}
       />
     </>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useRef, memo } from "react";
+import { Suspense, memo } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -9,8 +9,8 @@ import {
   useGLTF,
   Center,
   Environment,
+  Clone,
 } from "@react-three/drei";
-import * as THREE from "three";
 
 // THREE.Clock is deprecated in r170+; @react-three/fiber uses it internally
 const _warn = console.warn;
@@ -32,41 +32,9 @@ const MODEL_MAP: Record<string, string> = {
 Object.values(MODEL_MAP).forEach((path) => useGLTF.preload(path));
 
 function Model({ model }: { model: string }) {
-  const groupRef = useRef<THREE.Group>(null!);
   const path = MODEL_MAP[model] || MODEL_MAP.skeleton;
   const { scene } = useGLTF(path);
-
-  useEffect(() => {
-    const group = groupRef.current;
-    const clone = scene.clone(true);
-    clone.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.geometry = child.geometry.clone();
-        if (Array.isArray(child.material)) {
-          child.material = child.material.map((m) => m.clone());
-        } else {
-          child.material = child.material.clone();
-        }
-        child.frustumCulled = false;
-      }
-    });
-    group.add(clone);
-    return () => {
-      group.remove(clone);
-      clone.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.geometry.dispose();
-          if (Array.isArray(child.material)) {
-            child.material.forEach((m) => m.dispose());
-          } else {
-            child.material.dispose();
-          }
-        }
-      });
-    };
-  }, [scene]);
-
-  return <group ref={groupRef} scale={1.2} />;
+  return <Clone object={scene} scale={1.2} />;
 }
 
 const Scene = memo(function Scene({ model }: { model: string }) {

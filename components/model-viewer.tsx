@@ -12,6 +12,13 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
+// THREE.Clock is deprecated in r170+; @react-three/fiber uses it internally
+const _warn = console.warn;
+console.warn = (msg, ...args) => {
+  if (typeof msg === "string" && msg.includes("THREE.Clock")) return;
+  _warn(msg, ...args);
+};
+
 const MODEL_MAP: Record<string, string> = {
   skeleton: "/models/skeleton.glb",
   arthrology: "/models/skeleton.glb",
